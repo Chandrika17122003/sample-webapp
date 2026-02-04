@@ -2,16 +2,23 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout Code') {
             steps {
-                echo 'Checking out code from GitHub'
+                echo 'Code fetched from GitHub'
             }
         }
 
-        stage('Test Pipeline') {
+        stage('Deploy to Nginx') {
             steps {
-                echo 'Jenkins pipeline is working successfully'
+                echo 'Deploying application to Nginx'
+
+                sh '''
+                sudo cp index.html /var/www/html/index.html
+                sudo systemctl reload nginx
+                '''
             }
         }
     }
 }
+
